@@ -11,10 +11,10 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import insta from "../assets/insta.png"
+import insta from "../assets/insta.png";
 import Image from "next/image";
-import HomeIcon from '@mui/icons-material/Home';
-import ExploreIcon from '@mui/icons-material/Explore';
+import HomeIcon from "@mui/icons-material/Home";
+import ExploreIcon from "@mui/icons-material/Explore";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Logout"];
@@ -48,19 +48,21 @@ const ResponsiveAppBar = () => {
             component="div"
             sx={{ mr: 2, display: { xs: "flex", md: "flex" } }}
           >
-            <Image src={insta} height={55} width={150}/>
+            <Image src={insta} height={55} width={150} />
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}>
-            
-          </Box>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}></Box>
 
           <Box sx={{ flexGrow: 0 }} className="nav-icons-container">
-              <HomeIcon fontSize="large" className="nav-icons"/>
-              <ExploreIcon fontSize="large" className="nav-icons"/>
+            <HomeIcon fontSize="large" className="nav-icons" />
+            <ExploreIcon fontSize="large" className="nav-icons" />
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" sx={{margin: "0.5rem"}} />
+                <Avatar
+                  alt="Remy Sharp"
+                  src="/static/images/avatar/2.jpg"
+                  sx={{ margin: "0.5rem" }}
+                />
               </IconButton>
             </Tooltip>
             <Menu
