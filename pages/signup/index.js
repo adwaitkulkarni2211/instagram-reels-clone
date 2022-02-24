@@ -7,7 +7,8 @@ import { Link } from "@mui/material";
 import { useRouter } from "next/router";
 import { AuthContext } from "../../context/auth";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { storage } from "../../firebase";
+import { db, storage } from "../../firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 function signup() {
   const router = useRouter();
@@ -50,8 +51,16 @@ function signup() {
         () => {
           // Handle successful uploads on complete
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
             console.log("File available at", downloadURL);
+            let obj = {
+              name: name,
+              email: email,
+              uid: user.user.uid,
+              photoURL: downloadURL
+            }
+            await setDoc(doc(db, "users", user.user.uid), obj)
+            console.log("doc added");
           });
         }
       );
