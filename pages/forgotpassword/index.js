@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Image from "next/image";
 import TextField from "@mui/material/TextField";
 import insta from "../../assets/insta.png";
@@ -12,40 +12,41 @@ import carousel4 from "../../assets/carousel4.jpg";
 import carousel5 from "../../assets/carousel5.jpg";
 import { AuthContext } from "../../context/auth";
 import { useRouter } from "next/router";
-import { Link } from "@mui/material";
+import Link from "next/link";
 
 function index() {
-  const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const router = useRouter()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
   const [loading, setLoading] = useState(false);
 
-  const { login, user } = useContext(AuthContext);
+  const { forgot, user } = useContext(AuthContext)
 
   const handleClick = async () => {
     try {
-      setLoading(true);
-      setError("");
-      await login(email, password);
-      console.log("Logged in succesfully!");
-    } catch (err) {
+      setLoading(true)
+      setError('');
+      await forgot(email)
+      console.log("Email sent succesfully!");
+      router.push("/login")
+    } catch(err) {
       console.log(err);
-      setError(err.message);
+      setError(err.message)
       setTimeout(() => {
-        setError("");
-      }, 2000);
+        setError('')
+      }, 2000)
     }
-    setLoading(false);
-  };
+    setLoading(false)
+  }
 
   useEffect(() => {
-    if (user) {
-      router.push("/");
+    if(user) {
+      router.push("/")
     } else {
       console.log("user not logged in");
     }
-  }, [user]);
+  },[user])
 
   return (
     <div>
@@ -80,52 +81,27 @@ function index() {
               label="Email"
               variant="outlined"
               value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
+              onChange={((e) => {
+                setEmail(e.target.value)
+              })}
             />
-            <TextField
-              id="outlined-basic"
-              size="small"
-              margin="dense"
-              fullWidth
-              label="Password"
-              type="password"
-              variant="outlined"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  document.getElementById("login-btn").click();
-                }
-              }}
-            />
-            {error != "" && <div style={{ color: "red" }}>{error}</div>}
-
-            <Button
-              variant="contained"
-              fullWidth
-              style={{ marginTop: "1rem" }}
-              id="login-btn"
-              disabled={loading}
-              onClick={handleClick}
-            >
-              login
-            </Button>
-            <Link href={"/forgotpassword"}>
-              <div style={{ color: "blue", marginTop: "0.5rem", cursor:"pointer" }}>
-                Forgot Password
+            {
+              error != '' &&
+              <div style={{ color: "red" }}>
+                {error}
               </div>
-            </Link>
+            }
+            
+            <Button variant="contained" fullWidth style={{ marginTop: "1rem" }} id='send-email-btn' disabled={loading} onClick={handleClick}>
+              Send Email
+            </Button>
           </div>
           <div className="bottom-card">
             Don't Have an Account?{" "}
             <Link href={"/signup"}>
-              <span style={{ color: "blue", cursor: "pointer" }}>
+                <span style={{ color: "blue", cursor: "pointer" }}>
                 Signup Here
-              </span>
+                </span>
             </Link>
           </div>
         </div>

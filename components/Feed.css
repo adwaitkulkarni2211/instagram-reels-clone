@@ -9,7 +9,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
+    background-color: whitesmoke;
     padding-left: 1rem;
     padding-right: 1rem;
 }
@@ -93,5 +93,6 @@
 @media only screen and (max-width: 400px) {
     .avatar_container {
         padding-left: 1rem;
+        
     }
 }
