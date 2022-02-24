@@ -20,7 +20,7 @@ function AuthWrapper({ children }) {
       if (user) {
         setUser(user);
       } else {
-        setUser('')
+        setUser("")
       }
       setLoading(false);
     });

@@ -14,7 +14,7 @@ import { AuthContext } from "../../context/auth";
 import { useRouter } from "next/router";
 import { Link } from "@mui/material";
 
-function index() {
+function Index() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -121,7 +121,7 @@ function index() {
             </Link>
           </div>
           <div className="bottom-card">
-            Don't Have an Account?{" "}
+            Don&apos;t Have an Account?{" "}
             <Link href={"/signup"}>
               <span style={{ color: "blue", cursor: "pointer" }}>
                 Signup Here
@@ -134,4 +134,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;
