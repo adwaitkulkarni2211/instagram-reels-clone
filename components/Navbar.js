@@ -17,11 +17,12 @@ import HomeIcon from "@mui/icons-material/Home";
 import ExploreIcon from "@mui/icons-material/Explore";
 import { AuthContext } from "../context/auth";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Logout"];
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = ({ userData }) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -40,13 +41,13 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(null);
   };
 
-  const {logout} = React.useContext(AuthContext)
-  const router = useRouter()
+  const { logout } = React.useContext(AuthContext);
+  const router = useRouter();
 
   const handleLogout = async () => {
     await logout();
-    router.push("/login")
-  }
+    router.push("/login");
+  };
 
   return (
     <AppBar position="static" className="navbar">
@@ -70,7 +71,7 @@ const ResponsiveAppBar = () => {
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar
                   alt="Remy Sharp"
-                  src="/static/images/avatar/2.jpg"
+                  src={userData?.photoURL}
                   sx={{ margin: "0.5rem" }}
                 />
               </IconButton>
@@ -91,15 +92,20 @@ const ResponsiveAppBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem onClick={handleCloseUserMenu}>
+              <Link href="/profile">
+                <MenuItem onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">Profile</Typography>
+                </MenuItem>
+              </Link>
+
+              <MenuItem
+                onClick={async () => {
+                  handleLogout();
+                  handleCloseUserMenu();
+                }}
+              >
+                <Typography textAlign="center">Logout</Typography>
               </MenuItem>
-               <MenuItem onClick={async () => {
-                 handleLogout()
-                 handleCloseUserMenu()
-               }}>
-                  <Typography textAlign="center">Logout</Typography>
-               </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
